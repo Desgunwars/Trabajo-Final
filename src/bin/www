@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+const app = require('../app');
+
+// Settigs Port on Server
+app.set('port', process.env.PORT || 3000);
+
+
+app.listen(app.get('port'), ()=>{
+    console.log(`App is listening on port ${ app.get('port')}`);
+});
