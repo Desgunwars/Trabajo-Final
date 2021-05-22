@@ -1,8 +1,7 @@
 'use strict'
 const userModel = require('./models');
 const userDto = require('./dto');
-const createError = require('http-errors')
-const encrypt = require('../../subscribers/encript')
+const createError = require('http-errors');
 
 module.exports = {
     
@@ -14,12 +13,14 @@ module.exports = {
             email: req.body.email,
             password: req.body.passwd
         }).then(result =>{
-            return res.send(userDto.mapeo(result, req.user));
+            let { token } = result; 
+            result = result.resolt[0];
+            console.log(toke);
+            return res.send(userDto.single(result,token))
+        }).catch(err =>{ 
+            return res.status(404).send({message: `El Email/Password no exite`});
         }).catch(err =>{
-            err = createError(`El Email/Password no exite`);
-            return res.json({ status: err});
-        }).catch(err =>{
-            return res.status(500).send(`Error on Server Process ${ err }`)
+            return res.status(500).send({status: `Error on Server Process ${ err }`})
         });
     },  
 
@@ -46,10 +47,10 @@ module.exports = {
                 password: req.body.passwd
             });
         }).then(resolve =>{
-            // console.log(resolve);
+            console.log(resolve);
             return res.json({status:`El usuario seguiardo de manera exitosa `})
         }).catch(err =>{
-            err = createError(`En la base de datos exite este usuario`)
+            err = createError(`En la base de datos exite este usuario`);
             return res.json({status: err });
         });
     }, 

@@ -10,28 +10,43 @@ const tokens = require('../../subscribers/token.js');
 
 module.exports = {
     
-    async getUser({email, password}){
+    async getUser(infoU){
         return new Promise((resolve, reject) =>{
-            connection.query(getEmailSql, [email], (err, resolt) =>{
-                if(err) return reject(err);
-                if(resolt.length == 0){
-                    return resolve(false);
-                }else{
-                    let passwdHash = resolt[0].password;
-                    encrypt.comparationPassword(password, passwdHash).then(compaPasword =>{
-                        if(compaPasword == false){
-                            return reject(false);
-                        }else{
-                            return resolve(resolt);
-                        };
-                    }).catch(err =>{
-                        return reject(`La contraseñas no son iguales`);
-                    });    
-                }
-            });
+            try {
+                let {email, password} = infoU;
+                connection.query(getEmailSql, [email], (err, resolt)=>{
+                    if(resolt.length == 0) resolve(false);
+                    else{
+                        try{
+                            const passwdHash = resolt[0].password;
+                            
+                            encrypt.comparationPassword(password, passwdHash)
+                            .then(compaPasword =>{
+                                if(compaPasword == false){
+                                    reject(false);
+                                }else{
+                                    resolve({
+                                        resolt,
+                                        token: tokens.createToken(infoU)
+                                    });
+                                };
+                            });    
+                        }catch(error){
+                            reject({
+                                status:500,
+                                message:'Password Invalided'
+                            });
+                        }
+                    }
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Usuaro No exite'  
+                });
+            }
         });
     },
-
 
     async createUser(userI){        
         return new Promise((resolve, reject) =>{
@@ -39,13 +54,13 @@ module.exports = {
             encrypt.encryptPassword(password).then(hashPassword =>{
                 connection.query(insertUser, [user, apellido, nro_ident, fecha_naci, genero, email, hashPassword],(err, result) =>{
                     if(err) return reject(err);
-                    else return resolve({ token: tokens.createToken(userI)});
+                    else return resolve({token: tokens.createToken(userI)});
                 }); 
             });
         });
     },
 
-    async signIn(){
+    async signIn({email, password}){
 
     }
 }
