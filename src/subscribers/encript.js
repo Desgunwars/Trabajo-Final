@@ -5,7 +5,6 @@ const config = require('../config/config');
 
 module.exports ={
     async encryptPassword(password){
-        // console.log(config.BC_SALT);
         return await bcrypt.hash(password, config.BC_SALT);
     }, 
     

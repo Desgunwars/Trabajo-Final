@@ -52,23 +52,6 @@ module.exports = {
             err = createError(`En la base de datos exite este usuario`)
             return res.json({status: err });
         });
-
-        // const createUser = await userModel.createUser({
-        //     user: req.body.user,
-        //     apellido: req.body.apellido,
-        //     nro_ident: req.body.documento,
-        //     fecha_naci: req.body.fNacimiento,
-        //     genero: req.body.genero,
-        //     email: req.body.email,
-        //     password: req.body.passwd
-        // }).then(resuld =>{
-        //     return res.status(200).send(resuld);
-        // }).catch(err =>{
-        //     err = createError(400, `Bad Registeration request `);
-        //     return res.status(err);
-        // }).catch(err =>{
-        //     return res.status(500).send(`Error on Server Process ${ err }`);
-        // });
     }, 
     
 }

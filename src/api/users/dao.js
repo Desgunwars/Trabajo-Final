@@ -5,7 +5,7 @@ const {
     getEmailSql,
     insertUser} = require('../../config/querys');
 const encrypt = require('../../subscribers/encript');
-const jwt = require('../../subscribers/token.js');
+const tokens = require('../../subscribers/token.js');
 
 
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
             encrypt.encryptPassword(password).then(hashPassword =>{
                 connection.query(insertUser, [user, apellido, nro_ident, fecha_naci, genero, email, hashPassword],(err, result) =>{
                     if(err) return reject(err);
-                    else return resolve({ token: jwt.createToken(userI)});
+                    else return resolve({ token: tokens.createToken(userI)});
                 }); 
             });
         });

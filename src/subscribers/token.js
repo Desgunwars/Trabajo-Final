@@ -11,5 +11,9 @@ module.exports = {
             exp: moment().add(15,'LT').unix(),
         }
         return await jwt.encode(pyload, config.SECRET_TOKEN);
+    },
+    
+    async validationToken(token){
+        return await jwt.decode(token, config.SECRET_TOKEN);
     }
 }
