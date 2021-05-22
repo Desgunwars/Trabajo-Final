@@ -1,17 +1,11 @@
 const mysql = require('mysql');
-const dotenv = require('dotenv');
-
-dotenv.config({path: '/.env'});
+const config = require('./config');
 
 module.exports = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '01251903',
-    database: 'tienda'
-    // host: process.env.DB_HOST,
-    // user: process.env.DB_USER,
-    // password: process.env.DB_PASSWORD,
-    // database: process.env.DB_DATABASE
+    host: config.DB_HOST,
+    user: config.DB_USER,
+    password: config.DB_PASSWORD,
+    database: config.DB_DATABASE
 });
 // .connect((err =>{
 //         if(err){

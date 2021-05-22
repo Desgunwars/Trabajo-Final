@@ -1,11 +1,12 @@
 const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
+const config = require('../config/config');
 
-// dotenv.config({path: '../config/.env'});
+
 
 module.exports ={
     async encryptPassword(password){
-        return await bcrypt.hash(password, 10);
+        // console.log(config.BC_SALT);
+        return await bcrypt.hash(password, config.BC_SALT);
     }, 
     
     async comparationPassword( password, hashPassword ){
