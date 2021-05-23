@@ -49,7 +49,6 @@ module.exports = {
 
     async createUser(userI){        
         return new Promise((resolve, reject) =>{
-
             try {
                 let {user, apellido, nro_ident, fecha_naci, genero, email, password} = userI;
                 encrypt.encryptPassword(password).then(hashPassword =>{
@@ -59,7 +58,10 @@ module.exports = {
                     }); 
                 });
             } catch (error) {
-                
+                reject({
+                    status:500,
+                    message:'Error en la base de datos'
+                })
             }
         });
     },
