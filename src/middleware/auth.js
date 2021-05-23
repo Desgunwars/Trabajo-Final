@@ -12,10 +12,11 @@ module.exports = {
         // Si si hay un token lo convierte en un array y quita el espacio que hay
         // y lo almacena en la primera posicion 
         const token = req.headers.authorization.split(" ")[1];  
-        // console.log(token);
+        
         tokens.decodeToken(token)
-        .then(response =>{
-            req.user = response;
+        .then(response=>{
+            res.user = response[0];
+            res.password = response[1];
             next();  
         })
         .catch(response =>{

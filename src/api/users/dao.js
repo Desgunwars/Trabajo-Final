@@ -9,7 +9,6 @@ const tokens = require('../../subscribers/token.js');
 
 
 module.exports = {
-    
     async getUser(infoU){
         return new Promise((resolve, reject) =>{
             try {
@@ -50,17 +49,25 @@ module.exports = {
 
     async createUser(userI){        
         return new Promise((resolve, reject) =>{
-            let {user, apellido, nro_ident, fecha_naci, genero, email, password} = userI;
-            encrypt.encryptPassword(password).then(hashPassword =>{
-                connection.query(insertUser, [user, apellido, nro_ident, fecha_naci, genero, email, hashPassword],(err, result) =>{
-                    if(err) return reject(err);
-                    else return resolve({token: tokens.createToken(userI)});
-                }); 
-            });
+
+            try {
+                let {user, apellido, nro_ident, fecha_naci, genero, email, password} = userI;
+                encrypt.encryptPassword(password).then(hashPassword =>{
+                    connection.query(insertUser, [user, apellido, nro_ident, fecha_naci, genero, email, hashPassword],(err, result) =>{
+                        if(err) reject(err);
+                        else resolve({token: tokens.createToken(userI)});
+                    }); 
+                });
+            } catch (error) {
+                
+            }
         });
     },
 
-    async signIn({email, password}){
+}
 
-    }
+const buscar = async (email) =>{
+    await connection.query(getEmailSql, [email],(err, res) =>{
+        console.log(res);
+    });
 }

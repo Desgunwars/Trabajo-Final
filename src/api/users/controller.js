@@ -14,11 +14,13 @@ module.exports = {
             password: req.body.passwd
         }).then(result =>{
             let { token } = result; 
+            console.log(result);
             result = result.resolt[0];
-            console.log(toke);
-            return res.send(userDto.single(result,token))
+            console.log(token);
+            return res.json(result)
         }).catch(err =>{ 
-            return res.status(404).send({message: `El Email/Password no exite`});
+            console.log(err);
+            return res.status(400).send({message: `El Email/Password no exite`});
         }).catch(err =>{
             return res.status(500).send({status: `Error on Server Process ${ err }`})
         });
@@ -54,5 +56,4 @@ module.exports = {
             return res.json({status: err });
         });
     }, 
-    
 }
