@@ -3,9 +3,9 @@ const userDao = require('./dao');
 
 module.exports = {
     async signInAdmin(Admin){
-        return userDao.getUser(Admin);
+        return userDao.signInAdmin(Admin);
     },
     async singUpAdmin(Admin){
-        return userDao.createUserAdmin(Admin);
+        return userDao.singUpAdmin(Admin);
     }
 }
