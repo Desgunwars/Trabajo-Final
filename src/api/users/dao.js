@@ -1,6 +1,6 @@
 // Data Access Object = Acceso de Objeto de datos
 'use strict'
-const connection = require('../../config/connection');
+const connect = require('../../config/connection');
 const {
     getEmailSql,
     insertUser} = require('../../config/querys');
@@ -13,12 +13,10 @@ module.exports = {
         return new Promise((resolve, reject) =>{
             try {
                 let {email, password} = infoU;
-                connection.query(getEmailSql, [email], (err, resolt)=>{
+                connect.query(getEmailSql, [email], (err, resolt)=>{
                     if(resolt.length == 0) resolve(false);
                     else{
-                        try{
                             const passwdHash = resolt[0].password;
-                            
                             encrypt.comparationPassword(password, passwdHash)
                             .then(compaPasword =>{
                                 if(compaPasword == false){
@@ -30,12 +28,6 @@ module.exports = {
                                     });
                                 };
                             });    
-                        }catch(error){
-                            reject({
-                                status:500,
-                                message:'Password Invalided'
-                            });
-                        }
                     }
                 });
             } catch (error) {
@@ -52,7 +44,7 @@ module.exports = {
             try {
                 let {user, apellido, nro_ident, fecha_naci, genero, email, password} = userI;
                 encrypt.encryptPassword(password).then(hashPassword =>{
-                    connection.query(insertUser, [user, apellido, nro_ident, fecha_naci, genero, email, hashPassword],(err, result) =>{
+                    connect.query(insertUser, [user, apellido, nro_ident, fecha_naci, genero, email, hashPassword],(err, result) =>{
                         if(err) reject(err);
                         else resolve({token: tokens.createToken(userI)});
                     }); 
@@ -66,10 +58,4 @@ module.exports = {
         });
     },
 
-}
-
-const buscar = async (email) =>{
-    await connection.query(getEmailSql, [email],(err, res) =>{
-        console.log(res);
-    });
 }

@@ -2,11 +2,15 @@
 // Get Email and Password For valid in database
 const getEmailSql = `SELECT * FROM users WHERE email = ?; `;
 const insertUser = `INSERT INTO users (nombre, apellido, nro_ident, fecha_naci, genero, email, password) VALUES (?,?,?,?,?,?,?);`;
-const validatorUser = `SELECT email, password FROM users WHERE email ='?' AND ? = ?;`;
-const deleteProduct = ``;
+
+/* SQL Admin*/
+const getAdmin = `SELECT * FROM admin WHERE email = ?;`;
+const InsertAdmin = `INSERT INTO admin (email, password) VALUES (?,?);`;
 
 
 module.exports = {
     getEmailSql,
-    insertUser
+    insertUser,
+    getAdmin,
+    InsertAdmin
 }
