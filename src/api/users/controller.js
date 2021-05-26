@@ -14,7 +14,6 @@ module.exports = {
             password: req.body.passwd
         }).then(result =>{
             let { token } = result; 
-            // console.log(result);
             result = result.resolt[0];
             console.log(token);
             return res.json(userDto.single(result));

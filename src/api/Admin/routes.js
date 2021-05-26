@@ -1,8 +1,9 @@
 'use strict'
 const express = require('@awaitjs/express');
 const router = express.Router();
-const AdminController = require('../Admin/Admincontroller');
+const controller = require('./controller');
 
-router.postAsync('/singupadmin', AdminController.singUpAdmin);
+router.postAsync('/adminUp', controller.singUpAdmin);
+router.postAsync('/adminIn', controller.singInAdmin);
 
 module.exports = router;

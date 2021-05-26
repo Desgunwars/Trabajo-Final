@@ -1,5 +1,5 @@
 // Querys For Databases
-// Get Email and Password For valid in database
+/* SQL User */
 const getEmailSql = `SELECT * FROM users WHERE email = ?; `;
 const insertUser = `INSERT INTO users (nombre, apellido, nro_ident, fecha_naci, genero, email, password) VALUES (?,?,?,?,?,?,?);`;
 
@@ -7,10 +7,21 @@ const insertUser = `INSERT INTO users (nombre, apellido, nro_ident, fecha_naci, 
 const getAdmin = `SELECT * FROM admin WHERE email = ?;`;
 const InsertAdmin = `INSERT INTO admin (email, password) VALUES (?,?);`;
 
+/* SQL Global */
 
+const getProduct = `SELECT * FROM productos`
+
+/* SQL User */
 module.exports = {
     getEmailSql,
     insertUser,
+    getProduct
+}
+
+
+/* SQL Admin Export */
+module.exports = {
     getAdmin,
-    InsertAdmin
+    InsertAdmin,
+    getProduct
 }

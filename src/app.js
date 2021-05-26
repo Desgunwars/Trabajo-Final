@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
 const routes = require('./routes')
 const { error404, error500 } = require('./middleware');
 
@@ -8,10 +9,11 @@ const app = express();
 
 app.use(express.json({limit: '300kb'}));
 app.use(express.urlencoded({ extended: false }));
+// app.use(fileUpload()) 
 app.use(cookieParser());
 
 app.use('/users', routes);
-// app.use('/admin', routes);
+app.use('/admin', routes);
 
 
 // Handling error
