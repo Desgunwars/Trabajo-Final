@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/login-register.css" rel="stylesheet" />
+    <title><%= title %></title>>
+</head>
+
+<body>
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div><%= local %><span><%= ape %></span></div>
+    </div>
+    <br>
+    <form class="login">
+        <input type="text" placeholder="username" name="email"><br>
+        <input type="password" placeholder="password" name="passwd"><br>
+        <button type="submit" onclick="peticion(email,passwd)">Enviar</button>
+    </form>
+
+
+
+    <script src="../viewrouter/view.router.js"></script>
+    <script>
+
+        const peticion = (email,passwd) =>{
+
+            const url = 'http://localhost:80/admin/admin/adminIn';
+            const info = {email, passwd};
+            const data ={
+                method: "post",
+                header: {
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify(info)
+            };
+
+            fetch(url, data )
+            .then(response => response.json())
+            .then(data => {
+                console.log('holamundo')
+            })
+            .catch(err => console.log('holamundo'));
+        }
+
+    </script>
+    <!-- <script src="../models/controller.js"></script> -->
+    <!-- method="post" action="peticion" -->
+</body>
+
+</html>

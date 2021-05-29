@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon src/bin/www",
+    "start": "nodemon src/server/bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,10 +14,13 @@
     "@awaitjs/express": "^0.7.2",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
     "http-errors": "^1.8.0",
     "jwt-simple": "^0.5.6",
     "moment": "^2.29.1",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "mysql": "^2.18.1"
   },
