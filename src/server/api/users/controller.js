@@ -26,10 +26,9 @@ module.exports = {
     },  
 
     async createUser(req, res){
-        if(!req.body.user) return res.sendStatus(400);
+        if(!req.body.nombre) return res.sendStatus(400);
         if(!req.body.apellido) return res.sendStatus(400);
         if(!req.body.documento) return res.sendStatus(400);
-        if(!req.body.fNacimiento) return res.sendStatus(400);
         if(!req.body.genero) return res.sendStatus(400);
         if(!req.body.email) return res.sendStatus(400);
         if(!req.body.passwd) return res.sendStatus(400);
@@ -39,10 +38,9 @@ module.exports = {
             password: req.body.passwd
         }).then(createUser =>{
             return userModel.createUser({
-                user: req.body.user,
+                nombre: req.body.nombre,
                 apellido: req.body.apellido,
                 nro_ident: req.body.documento,
-                fecha_naci: req.body.fNacimiento,
                 genero: req.body.genero,
                 email: req.body.email,
                 password: req.body.passwd

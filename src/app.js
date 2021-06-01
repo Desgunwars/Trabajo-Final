@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const routes = require('./server/routes/index');
-const viewrutas = require('./viewrouter/view.router');
+const viewrutas = require('./server/routes/view.rutes');
 const morgan = require('morgan');
 const { error404, error500 } = require('./server/middleware/index');
 
@@ -13,10 +13,10 @@ const app = express();
 app.use(morgan('dev'));
 
 // Setting views configuration
-app.set('views', path.join(__dirname,'views'));
+app.set('views', path.join(__dirname,'./server/views'));
 app.set('view engine', 'ejs');
 app.use(expressLayout);
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname,'./public')));
 
 // Settings server configuration 
 app.use(express.json({limit: '300kb'}));

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/login-register.css" rel="stylesheet" />
+    <title><%= title %></title>>
+</head>
+
+<body>
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div><%= local %><span><%= ape %></span></div>
+    </div>
+    <br>
+    <form class="login" method = "POST" action="/admin/admin/adminIn">
+        <input type="text" placeholder="Email" name="email" id="email"><br>
+        <input type="password" placeholder="password" name="passwd" id="passwd"><br>
+        <button type="submit" >Enviar</button>
+    </form>
+
+
+
+    <!-- <script type="text/javascript" src="../routes/view.rutes.js"></script> -->
+    <!-- <script>
+
+        const peticion = (email,passwd) =>{
+
+            const myForm = document.getElementById("myForm");
+            
+            myForm.AddEventListener("submit", function(e){
+                e.preventDefault();
+
+                const formData = new FormData(this)
+
+                fetch('http://localhost:80/admin/admin/adminIn', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then((response) => console.log(true))
+                .catch((error) => console.log(false))
+            });
+        }
+
+    </script> -->
+    <!-- <script src="../models/controller.js"></script> -->
+    <!-- method="post" action="peticion" -->
+</body>
+
+</html>

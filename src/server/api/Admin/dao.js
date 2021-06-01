@@ -5,7 +5,14 @@ const tokens = require('../../subscribers/token');
 const {
     getAdmin,
     InsertAdmin,
-    getProduct } = require('../../config/querys');
+    getProducts,
+    getCategory,
+    getProductBebes,
+    getProductNiños,
+    getProductJovenes,
+    getProductAdultos,
+    InsertProduct} = require('../../config/querysAdmin');
+const connection = require('../../config/connection');
 module.exports = {
 
     async signInAdmin(Admin) {
@@ -13,7 +20,6 @@ module.exports = {
             try {
                 let { email, password } = Admin;
                 connect.query(getAdmin, [email], (err, resolt) => {
-                    console.log(resolt.length);
                     if (resolt.length == 0) resolve(false);
                     else {
                         const passwordHash = resolt[0].password;
@@ -46,7 +52,7 @@ module.exports = {
                 let { email, password } = Admin;
                 encrypt.encryptPassword(password).then((hasPasswords) => {
                     connect.query(InsertAdmin, [email, hasPasswords], (err, result) => {
-                        if (err) return reject(err);
+                        if (err) reject(err);
                         else resolve({ token: tokens.createToken(Admin) });
                     });
                 });
@@ -59,30 +65,102 @@ module.exports = {
         });
     },
 
-    // async allProduct() {
-    //     return new Promise((resolve, reject) => {
-    //         try {
-    //             connect.query(getProduct, (err, result) => {
-    //                 if (err) reject(err);
-    //                 else if (result.length == 0) resolve({ status: 200, message: 'No hay producto' });
-    //                 else resolve({ status: 200, result });
-    //             });
-    //         } catch (error) {
-    //             reject({
-    //                 status: 500,
-    //                 message: 'Error en la base de datos'
-    //             });
-    //         }
-    //     });
-    // },
+    async uploadProduct({ nombre_p, descripcion_p, nombre ,foto, vr_unitario, cantidad, oferta}) {
+        return new Promise((resolve, reject) => {
+            try {
+                connection.query(getCategory, [nombre],(err, result) =>{
+                    const id_categoria = result[0].id_categoria;
+                    connection.query(InsertProduct, [id_categoria ,nombre_p, descripcion_p, foto, vr_unitario, cantidad, oferta], (err, result) =>{
+                        if(err) reject({status: 500, message: err});
+                        else resolve({status: 200})
+                    });
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Error al guardar producto en la base de datos'
+                });
+            }
+        });
+    },
 
-    // async uploadProduct({nombre, descripcion, foto, vr_unitario, cantidad, oferta}) {
-    //     return new Promise((resolve, reject) => {
-    //         try {
-    //             let DbFoto = foto;
-    //         } catch (error) {
-                
-    //         }
-    //     });
-    // }
+    async getProductAll(){
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(getProducts,(err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                reject({
+                    status: 500, 
+                    message: 'Problemas con la conexcion a la base de datos'
+                });
+            }
+        });
+    },
+
+    async getProductBebe(){
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(getProductBebes, (err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Error en la categoria Bebes'
+                })
+            }
+        });
+    },
+
+    async getProductNiños(){
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(getProductNiños, (err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Error en la categoria Bebes'
+                })
+            }
+        });
+    },
+    
+    async getProductJovenes(){
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(getProductJovenes, (err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Error en la categoria Bebes'
+                })
+            }
+        });
+    },
+    
+    async getProductAdultos(){
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(getProductAdultos, (err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Error en la categoria Bebes'
+                })
+            }
+        });
+    }
 }
