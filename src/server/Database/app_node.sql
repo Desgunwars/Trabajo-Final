@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-05-2021 a las 02:17:22
+-- Tiempo de generación: 01-06-2021 a las 04:02:03
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.11
 
@@ -94,10 +94,18 @@ CREATE TABLE `productos` (
   `id_categoria` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `descripcion` varchar(200) DEFAULT NULL,
-  `foto` longblob DEFAULT NULL,
+  `foto` varchar(500) DEFAULT NULL,
   `vr_unitario` double DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL
+  `cantidad` int(11) DEFAULT NULL,
+  `oferta` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id_producto`, `id_categoria`, `nombre`, `descripcion`, `foto`, `vr_unitario`, `cantidad`, `oferta`) VALUES
+(2, 1, 'Jeans', NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -110,7 +118,6 @@ CREATE TABLE `users` (
   `nombre` varchar(40) NOT NULL,
   `apellido` varchar(50) DEFAULT NULL,
   `nro_ident` int(20) NOT NULL,
-  `fecha_naci` date DEFAULT NULL,
   `genero` varchar(15) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(300) NOT NULL
@@ -180,7 +187,7 @@ ALTER TABLE `compras`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
