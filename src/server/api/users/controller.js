@@ -52,5 +52,71 @@ module.exports = {
             err = createError(`En la base de datos exite este usuario`);
             return res.json({status: err });
         });
-    }, 
+    },
+
+    async getProductAll(req, res){
+        const getProductAll = await userModel
+        .getProductAll()
+        .then(result =>{
+            return res.json(userDto.mapeo(result));
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                message: 'Error Al opctener la consulta'
+            });
+        });
+    },
+
+    async getProductBebe(req, res){
+        const getProductBebe = await userModel
+        .getProductBebe()
+        .then(result =>{
+            return res.json(userDto.mapeo(result));
+        }).catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la conexcion en la base de datos'
+            });
+        });
+    },
+
+    async getProductNiños(req, res){
+        const getProductNiños = await userModel
+        .getProductNiños()
+        .then(result =>{
+            return res.json(userDto.mapeo(result));
+        }).catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la conexcion en la base de datos'
+            });
+        });
+    },
+
+    async getProductJovenes(req, res){
+        const getProductNiños = await userModel
+        .getProductNiños()
+        .then(result =>{
+            return res.json(userDto.mapeo(result));
+        }).catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la conexcion en la base de datos'
+            });
+        });
+    },
+
+    async getProductAdultos(req, res){
+        const getProductNiños = await userModel
+        .getProductNiños()
+        .then(result =>{
+            return res.json(userDto.mapeo(result));
+        }).catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la conexcion en la base de datos'
+            });
+        });
+    },
 }

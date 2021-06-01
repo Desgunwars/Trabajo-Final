@@ -10,5 +10,5 @@ const mapeo = (cantidad) => cantidad.map((cantid) =>  viewProducts(cantid))
 
 module.exports = {
     mapeo,
-    viewProducts
+
 }

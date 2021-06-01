@@ -8,6 +8,26 @@ module.exports ={
 
     async createUser(user){
         return userDao.createUser(user)
+    },
+
+    async getProductAll(){
+        return userDao.getProductAll()
+    },
+    
+    async getProductBebe(){
+        return userDao.getProductBebe()
+    },
+
+    async getProductNiños(){
+        return userDao.getProductNiños()
+    },
+
+    async getProductJovenes(){
+        return userDao.getProductJovenes()
+    },
+
+    async getProductAdultos(){
+        return userDao.getProductAdultos()
     }
 }
 

@@ -5,8 +5,17 @@ const single = (resources, tvalidation) => ({
     email: resources.email,
 });
 
-// const mapeo = (cantidad,user) => cantidad.map((cantid) => single(cantid, user))
+
+const products = (resources) =>({
+    Nombre: resources.nombre_p,
+    Descripcion: resources.descripcion_p,
+    Foto: resources.foto,
+    Valor: resources.vr_unitario
+})
+const mapeo = (cantidad) => cantidad.map((cantid) => products(cantid))
+
 
 module.exports ={
     single,
+    mapeo
 }
