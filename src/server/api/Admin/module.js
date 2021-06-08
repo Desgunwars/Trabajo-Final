@@ -13,19 +13,41 @@ module.exports = {
         return userDao.uploadProduct(product);
     },
 
-    async InsertCategory(Category) {
-        return userDao.insertCategory(Category);
-    },
-
     async getProductAll(){
         return userDao.getProductAll();
     },
 
     async getProductBebe(){
-        return userDao.getProductBebe()
+        return userDao.getProductBebe();
     },
 
     async getProductNiños(){
         return userDao.getProductNiños();
+    },
+    async getProduct(id){
+        return userDao.getProduct(id);
+    }, 
+    async upgradeProduct(datosUpload){
+        return userDao.UpgradeProduct(datosUpload);
+    }, 
+
+    async DeleteProduct(id){
+        return userDao.DeleteProduct(id);
+    },
+
+    async getDesciption(id){
+        return userDao.getDesciption(id);
+    },
+
+    async updateCategory(description){
+        return userDao.UpdateCategory(description);
+    },
+
+    async getUser(){
+        return userDao.managerUsers();
+    },
+
+    async getStartClient(){
+        return userDao.clientesStarts();
     }
 }

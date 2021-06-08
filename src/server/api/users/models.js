@@ -28,6 +28,10 @@ module.exports ={
 
     async getProductAdultos(){
         return userDao.getProductAdultos()
+    },
+
+    async buyProduct(info){
+        return userDao.buyProduct(info)
     }
 }
 

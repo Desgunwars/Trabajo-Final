@@ -7,9 +7,11 @@ const { getUser,
         getProductBebes,
         getProductNiños,
         getProductJovenes,
-        getProductAdultos,} = require("../../config/querysUsers");
+        getProductAdultos,
+        buyProduct} = require("../../config/querysUsers");
 const encrypt = require("../../subscribers/encript");
 const tokens = require("../../subscribers/token.js");
+const moment = require("moment")
 
 module.exports = {
     async getUser(infoU) {
@@ -17,6 +19,7 @@ module.exports = {
             try {
                 let { email, password } = infoU;
                 connection.query(getUser, [email], (err, resolt) => {
+                    console.log(resolt);
                     if (resolt.length == 0) resolve(false);
                     else {
                         const passwdHash = resolt[0].password;
@@ -151,4 +154,28 @@ module.exports = {
             }
         });
     },
+    
+    async buyProduct(info){
+        return new Promise((resolve, reject) =>{
+            try {
+                
+                let year = moment().year();
+                let month = moment().month();
+                let day = moment().day();
+                let {id_producto, id_cliente, precio} = info
+                let fullYear = `${year}-${month}-${day}`;
+                connection.query(buyProduct, [id_producto, id_cliente, precio,fullYear],(err, result)=>{
+                    if(err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message:'Problemas con la conexcion a la compra'
+                });
+            }
+        });
+    },
+
+    
 };

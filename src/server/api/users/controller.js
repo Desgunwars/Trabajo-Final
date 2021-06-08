@@ -119,4 +119,30 @@ module.exports = {
             });
         });
     },
+
+    async buyProduct(req, res){
+        if(!req.body.idProducto) return res.sendStatus(400);
+        if(!req.body.idUsuario) return res.sendStatus(400);
+        if(!req.body.valor) return res.sendStatus(400);
+
+        const compra = await userModel
+        .buyProduct({
+            id_producto: req.body.idProducto,
+            id_cliente: req.body.idUsuario,
+            precio: req.body.valor
+        })
+        .then(resultado =>{
+            return res.json({
+                status: 200,
+                mensaje: 'Se Rerealizado la compra con exito'
+            });
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la base de datos'
+            });
+        });
+
+    }
 }

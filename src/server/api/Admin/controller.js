@@ -109,7 +109,8 @@ module.exports = {
         .getProductBebe()
         .then(result =>{
             return res.json(userDto.mapeo(result));
-        }).catch(err =>{
+        })
+        .catch(err =>{
             return res.json({
                 status: 500,
                 mensaje: 'Error en la conexcion en la base de datos'
@@ -122,7 +123,8 @@ module.exports = {
         .getProductNiños()
         .then(result =>{
             return res.json(userDto.mapeo(result));
-        }).catch(err =>{
+        })
+        .catch(err =>{
             return res.json({
                 status: 500,
                 mensaje: 'Error en la conexcion en la base de datos'
@@ -135,7 +137,8 @@ module.exports = {
         .getProductNiños()
         .then(result =>{
             return res.json(userDto.mapeo(result));
-        }).catch(err =>{
+        })
+        .catch(err =>{
             return res.json({
                 status: 500,
                 mensaje: 'Error en la conexcion en la base de datos'
@@ -156,4 +159,145 @@ module.exports = {
         });
     },
 
+    async getProductId(req, res){
+        if(!req.body.id) return res.sendStatus(400)
+        const getProduct = await userModel
+        .getProduct({
+            id_producto: req.body.id
+        })
+        .then(result =>{
+            return res.json(result)
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la base de datos'
+            });
+        });
+    },
+
+    // Por terminar
+    async UpgradeProduct(req, res){
+        if (!req.body.id) return res.sendStatus(400)
+        const upgradeProduct = await userModel
+        .getProduct({
+            id_producto: req.body.id
+        })
+        .then(result =>{
+            return userModel
+            .upgradeProduct({
+                nombre_p: result[0].nombre_p,
+                descripcion_p: result[0].descripcion_p,
+                foto: result[0].foto,
+                vr_unitario: result[0].vr_unitario,
+                cantidad: result[0].cantidad,
+                oferta: result[0].oferta,
+                id_producto: result[0].id_producto
+            });
+        })
+        .then(result =>{
+            console.log("exito");
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la base de datos'
+            });
+        });
+    },
+
+    async DeleteProduct(req, res){
+        if (!req.body.id) return res.sendStatus(400)
+        
+        const deleteProduct = await userModel
+        .DeleteProduct({
+            id_producto: req.body.id
+        })
+        .then(result =>{
+            return res.json({
+                status: 200,
+                mensaje: 'El producto se elimino con exito'
+            });
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la conexcion de la base de datos'
+            });
+        });
+
+    },
+
+    async getDesciption(req, res){
+        if(!req.body.id) return res.sendStatus(400);
+        
+        const getCategory = await userModel
+        .getDesciption({
+            id_categoria: req.body.id
+        })
+        .then(result =>{
+            return res.json(result);
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la base de datos'
+            });
+        });
+    },
+
+    // Por terminar
+    async updateCategory(req, res){
+        if(!req.body.id) return res.sendStatus(400);
+        if(!req.body.descripcion) return res.sendStatus(400);
+
+        const UpdateCategory = await userModel
+        .updateCategory({
+            descripcion: req.body.descripcion,
+            id_categoria: req.body.id
+        })
+        .then(result =>{
+            return res.json({
+                status: 200,
+                mensaje:'Se ha actualizado la categoria'
+            });
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la base de datos'
+            });
+        });
+    },
+
+    async getUsers(req, res){
+        
+        const getUsers = await userModel
+        .getUser()
+        .then(users =>{
+            return res.json(users);
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la conexcion de la base de datos'
+            });
+        });
+    },
+
+    async getClientStart(req, res){
+        
+        const clientStart = await userModel
+        .getStartClient()
+        .then(result =>{
+            return res.json(result);
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la conexcion de la base de datos'
+            });
+        });
+    }
+    
 };

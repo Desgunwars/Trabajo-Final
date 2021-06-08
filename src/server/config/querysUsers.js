@@ -8,6 +8,10 @@ const getProductNiños = `SELECT categoria.nombre, productos.nombre_p,productos.
 const getProductJovenes = `SELECT categoria.nombre, productos.nombre_p,productos.descripcion_p, productos.foto, productos.vr_unitario FROM categoria JOIN productos ON categoria.id_categoria = productos.id_categoria WHERE categoria.nombre = "Calzado Jovenes";`;
 const getProductAdultos = `SELECT categoria.nombre, productos.nombre_p,productos.descripcion_p, productos.foto, productos.vr_unitario FROM categoria JOIN productos ON categoria.id_categoria = productos.id_categoria WHERE categoria.nombre = "Calzado Adultos";`;
 
+/* SQL Compras Productos */
+
+const buyProduct =`INSERT INTO compras (id_producto, id_cliente, precio, fecha_venta) VALUES (?,?,?,?);`;
+
 /* SQL User */
 module.exports = {
     getUser,
@@ -17,4 +21,5 @@ module.exports = {
     getProductNiños,
     getProductJovenes,
     getProductAdultos,
+    buyProduct
 }

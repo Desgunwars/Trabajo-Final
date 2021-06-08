@@ -3,7 +3,6 @@ const viewProducts = (resources, autoPorduct) =>({
     Descripcion: resources.descripcion_p,
     Foto: resources.foto,
     Valor: resources.vr_unitario
-    
 });
 
 const mapeo = (cantidad) => cantidad.map((cantid) =>  viewProducts(cantid))
