@@ -10,7 +10,7 @@ router.getAsync('/getProductBebe', controller.getProductBebe);
 router.getAsync('/getProductNiños', controller.getProductNiños);
 router.getAsync('/getProductJovenes', controller.getProductJovenes);
 router.getAsync('/getProductAdultos', controller.getProductAdultos);
-router.getAsync('/buyPrduct', controller.buyProduct)
+router.postAsync('/buyPrduct', controller.buyProduct)
 
 
 module.exports = router; 
