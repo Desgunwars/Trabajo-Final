@@ -16,7 +16,10 @@ router.getAsync('/getProductAdultos', controller.getProductAdultos);
 router.getAsync('/getProductId', controller.getProductId);
 router.getAsync('/getCategoryId', controller.getDesciption);
 router.getAsync('/getUsers', controller.getUsers);
-router.getAsync('/clientesEstralla', controller.getClientStart  );
+router.getAsync('/getPopularProduct', controller.getPopulartProducts);
+router.getAsync('/clientesEstralla', controller.getClientStart);
+router.getAsync('/byClient', controller.getByClient);
+router.getAsync('/totalRecaudos', controller.getTotals)       
 router.putAsync('/UpgradeProduct', controller.UpgradeProduct);
 router.putAsync('/UpdateCategory', controller.updateCategory);
 router.deleteAsync('/DeleteProduct', controller.DeleteProduct);

@@ -7,7 +7,14 @@ const viewProducts = (resources, autoPorduct) =>({
 
 const mapeo = (cantidad) => cantidad.map((cantid) =>  viewProducts(cantid))
 
+const mapPopular = (cantidad) => cantidad.map((cantid) => Populares(cantid))
+
+const Populares = (resources) => ({
+    Nombre_Producto: resources.Nombre_Producto,
+    Cantidad_Ventas: resources.Veces_Vendido
+});
+
 module.exports = {
     mapeo,
-
+    mapPopular,
 }

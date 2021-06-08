@@ -1,4 +1,5 @@
 'use strict'
+const { getTotal } = require('./dao');
 const userDao = require('./dao');
 
 module.exports = {
@@ -49,5 +50,21 @@ module.exports = {
 
     async getStartClient(){
         return userDao.clientesStarts();
+    },
+
+    async updateProduct(update){
+        return userDao.UpgradeProduct(update);
+    },
+
+    async popularProducts(){
+        return userDao.getPopulartProducts();
+    },
+
+    async getBuyClient(){
+        return userDao.getBuyClient();
+    },
+
+    async getTotal(){
+        return userDao.getTotal();
     }
 }

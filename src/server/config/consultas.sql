@@ -8,5 +8,7 @@
 -- UPDATE categoria SET descripcion = ? WHERE id_categoria = ?
 -- DELETE FROM productos WHERE id_producto = ?;
 -- SELECT nombre, apellido, genero email FROM users;
+-- SELECT id_cliente FROM users WHERE email = ?;
 
-SELECT id_cliente FROM users WHERE email = ?;
+-- SELECT users.id_cliente, users.nombre, productos.nombre_p, productos.descripcion_p FROM compras JOIN users, productos ON compra.id_productos = productos.id_producto AND compras.id_cliente = users.id_cliente WHERE id_compra = 6; 
+

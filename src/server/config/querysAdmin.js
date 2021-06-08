@@ -29,9 +29,11 @@ const deleteProducto = `DELETE FROM productos WHERE id_producto = ?;`;
 const getUsers = `SELECT nombre, apellido, genero email FROM users;`;
 /* SQL Start Client */
 const startClient = 'SELECT concat(users.nombre," ",users.apellido) as Nombres, COUNT(compras.id_producto) AS Productos_comprados FROM `users` INNER JOIN compras on users.id_cliente=compras.id_cliente GROUP BY compras.id_cliente HAVING COUNT(compras.id_producto)>2 ORDER BY SUM(compras.id_producto);';
-const popularProducts = 'SELECT productos.nombre as Nombre_Producto, COUNT() as Veces_Vendido from productos INNER JOIN compras on productos.id_producto=compras.id_producto GROUP BY compras.id_producto HAVING COUNT(*)=(SELECT MAX(contador) FROM (SELECT compras.id_producto, COUNT(*) contador from compras GROUP BY compras.id_producto) T)';
+const popularProducts = 'SELECT productos.nombre_p as Nombre_Producto, COUNT(*) as Veces_Vendido from productos INNER JOIN compras on productos.id_producto=compras.id_producto GROUP BY compras.id_producto HAVING COUNT(*)=(SELECT MAX(contador) FROM (SELECT compras.id_producto, COUNT(*) contador from compras GROUP BY compras.id_producto) T);';
+const getBuyClient = `SELECT concat(users.nombre," ",users.apellido) as Nombre_cliente, productos.nombre_p as Nombre_Producto, compras.fecha_venta, compras.precio FROM users INNER JOIN compras on users.id_cliente=compras.id_cliente INNER JOIN productos on productos.id_producto=compras.id_producto;`;
 
 /* SQL Ventas */
+const total = `SELECT SUM(precio) AS 'Recaudado' FROM compras;`;
 
 
 
@@ -54,4 +56,7 @@ module.exports = {
     selectCategory,
     updateCategory, 
     startClient,
+    popularProducts,
+    getBuyClient,
+    total
 }

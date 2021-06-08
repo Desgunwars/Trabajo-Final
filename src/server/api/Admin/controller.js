@@ -178,30 +178,26 @@ module.exports = {
 
     // Por terminar
     async UpgradeProduct(req, res){
-        if (!req.body.id) return res.sendStatus(400)
         const upgradeProduct = await userModel
-        .getProduct({
-            id_producto: req.body.id
+        .updateProduct({
+            id_producto: req.body.id,
+            nombre_p: req.body.nameP,
+            descripcion_p: req.body.description,
+            foto: req.body.urlImg,
+            vr_unitario: req.body.valueUnit,
+            cantidad: req.body.quatity,
+            oferta: req.body.offer,
         })
         .then(result =>{
-            return userModel
-            .upgradeProduct({
-                nombre_p: result[0].nombre_p,
-                descripcion_p: result[0].descripcion_p,
-                foto: result[0].foto,
-                vr_unitario: result[0].vr_unitario,
-                cantidad: result[0].cantidad,
-                oferta: result[0].oferta,
-                id_producto: result[0].id_producto
+            return res.json({
+                status: 200,
+                message: 'El producto fue actualizado con exito'
             });
-        })
-        .then(result =>{
-            console.log("exito");
         })
         .catch(err =>{
             return res.json({
                 status: 500,
-                mensaje: 'Error en la base de datos'
+                message: 'Error en la base de datos'
             });
         });
     },
@@ -271,7 +267,6 @@ module.exports = {
     },
 
     async getUsers(req, res){
-        
         const getUsers = await userModel
         .getUser()
         .then(users =>{
@@ -298,6 +293,47 @@ module.exports = {
                 mensaje: 'Error en la conexcion de la base de datos'
             });
         });
+    },
+
+    async getPopulartProducts(req, res){
+        
+        const products = await userModel
+        .popularProducts()
+        .then(result =>{
+            return res.json(result);
+        })
+        .catch(result =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error al conectarse a la base de datos'
+            });
+        });
+    },
+
+    async getByClient(req, res){
+
+        const byClient = await userModel
+        .getBuyClient()
+        .then(result =>{
+            return res.json(result);
+        })
+        .catch(err =>{
+            return res.json({
+                status: 500,
+                mensaje: 'Error en la base de datos'
+            });
+        });
+    },
+
+    async getTotals(req, res){
+        const totalMoney = await userModel
+        .getTotal()
+        .then(result =>{
+            return res.json({
+                status: 200,
+                mensaje: `El total recaudado es ${result[0].Recaudado}`
+            });
+        });
     }
-    
+
 };

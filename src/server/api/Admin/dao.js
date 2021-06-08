@@ -18,7 +18,10 @@ const {
     deleteProducto,
     selectCategory,
     startClient,
-    updateCategory} = require('../../config/querysAdmin');
+    updateCategory,
+    popularProducts,
+    getBuyClient,
+    total} = require('../../config/querysAdmin');
 const connection = require('../../config/connection');
 module.exports = {
 
@@ -211,10 +214,16 @@ module.exports = {
     async UpgradeProduct(datosUpload){
         return new Promise((resolve, reject) =>{
             try {
-                let { nombre_p, descripcion_p, foto, vr_unitario, cantidad, oferta, id_producto } = datosUpload
-                console.log(nombre_p, descripcion_p, foto, vr_unitario, cantidad, oferta, id_producto);
+                let { id_producto, nombre_p, descripcion_p, foto, vr_unitario, cantidad, oferta } = datosUpload
+                connection.query(putProduct, [nombre_p, descripcion_p, foto, vr_unitario, cantidad, oferta,id_producto], (err, result) =>{
+                    if(err) reject(err);
+                    else resolve({status: 200});
+                });
             } catch (error) {
-                
+                reject({
+                    status: 500,
+                    message: 'Error en la Actualizacion de la base de datos'
+                })
             }
         });
     },
@@ -272,18 +281,64 @@ module.exports = {
     },
 
     async clientesStarts(){
-        try {
-            connection.query(startClient, (err, result) =>{
-                if (err) reject(err);
-                else resolve(result)
-            });
-        } catch (error) {
-            reject({
-                status: 500,
-                message: 'Error en la Obtenecion de los Clientes Estrellas'
-            });
-        }
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(startClient, (err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result)
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Error en la Obtenecion de los Clientes Estrellas'
+                });
+            }
+        });
     },
     
-    
+
+    async getPopulartProducts(){
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(popularProducts, (err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Error en la Obtenecion de los Productos mas Vendidos'
+                });
+            }
+        });
+    },
+
+    async getBuyClient(){
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(getBuyClient, (err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                
+            }
+        });
+    },
+
+    async getTotal(){
+        return new Promise((resolve, reject) =>{
+            try {
+                connection.query(total, (err, result) =>{
+                    if (err) reject(err);
+                    else resolve(result);
+                });
+            } catch (error) {
+                reject({
+                    status: 500,
+                    message: 'Error en la Obtencion del Total'
+                });
+            }
+        });
+    }
 }
